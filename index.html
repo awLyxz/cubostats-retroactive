@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CuboStats Retroactive</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+</head>
+<body>
+  <h1>CuboStats Retroactive</h1>
+  
+  <form id="upload-form">
+    <label for="json-files">Import Statistics Files (.json)</label>
+    <p class="helper">The statistics files are located in your world file inside the stats folder as <code>&lt;uuid&gt;.json</code></p>
+    <input type="file" id="json-files" accept=".json" multiple required><br><br>
+    <button type="submit" id="convert">Convert</button>
+  </form>
+
+  <div id="status"></div>
+
+  <div id="result-section" style="display:none;">
+
+    <h2>Conversion Completed!</h2>
+
+    <div class="center">
+      <div class="side-to-side">
+        <h3>Generated .mcfunction files</h3>
+        <ul id="file-list"></ul>
+      </div>
+      
+      <div class="side-to-side">
+        <h3>Files with incorrect UUID</h3>
+        <ul id="failed-file-list"></ul>
+      </div>
+    </div>
+
+    <hr>
+    
+    <p>Download the zip file and extract its content inside the CuboStats datapack in <code>assets/cubostats/function/old_data</code></p>
+    <p>Download the advancement file and insert it inside the CuboStats datapack in <code>assets/cubostats/advancement</code></p>
+
+    <div class="dl-button">
+      <button id="download-zip-btn">&#x2B73; Download .mcfunction ZIP</button>
+      <button id="download-advancement-btn">&#x2B73; Download retroactive advancement</button>
+    </div>
+    
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

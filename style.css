@@ -1,0 +1,95 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a1a1a;
+}
+
+body * {
+  color: white
+}
+
+h1, h2, h3 {
+  text-align: center;
+}
+
+form {
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin: 10px 0;
+}
+
+.center {
+  text-align: center;
+}
+
+.side-to-side {
+  display: inline-block;
+  vertical-align: text-top;
+  text-align: left;
+  padding: 20px;
+  width: 20vw;
+}
+
+button {
+  color: black;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 20px;
+  font-family: Verdana, sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+
+#convert {
+  background-color: #06cea8;
+  border: solid 2px #049177;
+  box-shadow: 0 0 8px #06cea89d;
+}
+
+#convert:hover {
+  background-color: #049177;
+  color: #00ffd0;
+}
+
+.dl-button {
+  display: flex;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.dl-button * {
+  background-color: #32b3e6;
+  border: solid 2px #086c94;
+  box-shadow: 0 0 8px #32b3e69d;
+  text-align: center;
+  width:100%;
+  margin-left: 2vw;
+  margin-right: 2vw;
+}
+
+.dl-button *:hover {
+  background-color: #086c94;
+  color: #20c0ff;
+}
+
+.helper, hr {
+  color: #b1b1b1;
+  font-style: italic;
+}
+
+#status {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+#file-list, #failed-file-list {
+  margin-top: 10px;
+}

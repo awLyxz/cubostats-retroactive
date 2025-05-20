@@ -1,0 +1,10 @@
+{
+  "criteria": {
+    "retroactive_stats_update": {
+      "trigger": "minecraft:tick"
+    }
+  },
+  "rewards": {
+    "function": "cubostats:retroactive_stats/process_get_lowercase_name"
+  }
+}
