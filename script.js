@@ -65,7 +65,7 @@ async function fetchUsername(uuid) {
 }
 
 function generateMcfunctionContent(json, mapping, username) {
-  let content = 'tellraw @s [{"text":"Cubo","color":"dark_green"},{"text":"Stats","color":"red"},{"text":" was Retroactively Updated","color":"gold"}]\n';
+  let content = '$tellraw $(output_name) [{"text":"Cubo","color":"dark_green"},{"text":"Stats","color":"red"},{"text":" was Retroactively Updated","color":"gold"}]\n';
   const stats = json.stats || {};
 
   for (const category in stats) {
