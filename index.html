@@ -7,65 +7,65 @@
     <title>CuboStats Retroactive</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
-    <script src="script.js" defer></script>
-</head>
-<body>
-  <h1>CuboStats Retroactive</h1>
-  
-  <form id="upload-form">
-    <p class="helper">The statistics files are located in your world file inside the stats folder as <code>&lt;uuid&gt;.json</code>
-      <br><span style="color: rgb(255, 240, 165);">Stop your server or exit your single player world before importing the statistics files.</span></p>
-      
-    <div>
-      <input type="file" id="json-files" accept=".json" hidden multiple required>
-      <button type="button" id="add-files-button">Import Statistics Files (.json)</button>
-      <p id="file-status">No files selected.</p>
-    </div>
-
-    <button type="submit" id="convert-grayed">Convert</button>
-  </form>
-
-  <div id="status"></div>
-
-  <div id="result-section" style="display:none;">
-
-    <h2>Conversion Completed!</h2>
-
-    <div class="center">
-      <div class="side-to-side">
-        <h3>Generated .mcfunction files</h3>
-        <ul id="file-list"></ul>
+  </head>
+  <body>
+    <h1>CuboStats Retroactive</h1>
+    
+    <form id="upload-form">
+      <p class="helper">The statistics files are located in your world file inside the stats folder as <code>&lt;uuid&gt;.json</code>
+        <br><span style="color: rgb(255, 240, 165);">Stop your server or exit your single player world before importing the statistics files.</span></p>
+        
+      <div>
+        <input type="file" id="json-files" accept=".json" hidden multiple required>
+        <button type="button" id="add-files-button">Import Statistics Files (.json)</button>
+        <p id="file-status">No files selected.</p>
       </div>
-      
-      <div class="side-to-side">
-        <h3>Files with incorrect UUID</h3>
-        <ul id="failed-file-list"></ul>
+
+      <button type="submit" id="convert-grayed">Convert</button>
+    </form>
+
+    <div id="status"></div>
+
+    <div id="result-section" style="display:none;">
+
+      <h2>Conversion Completed!</h2>
+
+      <div class="center">
+        <div class="side-to-side">
+          <h3>Generated .mcfunction files</h3>
+          <ul id="file-list"></ul>
+        </div>
+        
+        <div class="side-to-side">
+          <h3>Files with incorrect UUID</h3>
+          <ul id="failed-file-list"></ul>
+        </div>
       </div>
+
+      <hr>
+      
+      <h2>Instructions</h2>
+
+      <p>Download the zip file and extract its content inside the CuboStats datapack in <code>assets/cubostats/function/old_data</code></p>
+      <p>Download the advancement file and insert it inside the CuboStats datapack in <code>assets/cubostats/advancement</code></p>
+
+      <div class="dl-button">
+        <button id="download-zip-btn">&#x2B73; Download .mcfunction ZIP</button>
+        <button id="download-advancement-btn">&#x2B73; Download retroactive advancement</button>
+      </div>
+
+      
+      <p class="important" style="margin-top: 40px; text-align: center; color: rgb(255, 240, 165); font-style:italic;">You can now restart your server or rejoin your single player world.</h3>
+      
+      <hr>
+      
     </div>
 
-    <hr>
-    
-    <h2>Instructions</h2>
-
-    <p>Download the zip file and extract its content inside the CuboStats datapack in <code>assets/cubostats/function/old_data</code></p>
-    <p>Download the advancement file and insert it inside the CuboStats datapack in <code>assets/cubostats/advancement</code></p>
-
-    <div class="dl-button">
-      <button id="download-zip-btn">&#x2B73; Download .mcfunction ZIP</button>
-      <button id="download-advancement-btn">&#x2B73; Download retroactive advancement</button>
+    <div class="links">
+      <h3>Made by <a href="https://github.com/awLyxz" target="_blank" rel="noopener noreferrer">awLyxz</a></h3>
+      <p>Report issue or improvement <a href="https://github.com/awLyxz/cubostats-retroactive/issues" target="_blank" rel="noopener noreferrer">here</a></p>
     </div>
 
-    
-    <p class="important" style="margin-top: 40px; text-align: center; color: rgb(255, 240, 165); font-style:italic;">You can now restart your server or rejoin your single player world.</h3>
-    
-    <hr>
-    
-  </div>
-
-  <div class="links">
-    <h3>Made by <a href="https://github.com/awLyxz" target="_blank" rel="noopener noreferrer">awLyxz</a></h3>
-    <p>Report issue or improvement <a href="https://github.com/awLyxz/cubostats-retroactive/issues" target="_blank" rel="noopener noreferrer">here</a></p>
-  </div>
-
-</body>
+      <script src="script.js" defer></script>
+  </body>
 </html>
