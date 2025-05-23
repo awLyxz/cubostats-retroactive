@@ -37,7 +37,7 @@ label {
 }
 
 button {
-  color: black;
+  color: white;
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 20px;
@@ -48,15 +48,34 @@ button {
   opacity: 1;
 }
 
+#add-files-button {
+  padding: 10px 20px;
+  background-color: #541f58;
+  border: solid 2px #8e3d96;
+  box-shadow: 0 0 8px #8e3d969d;
+}
+
+#add-files-button:hover {
+  background-color: #111;
+  color: #ea00ff;
+}
+
+
 #convert {
-  background-color: #06cea8;
-  border: solid 2px #049177;
+  background-color: #049177;
+  border: solid 2px #06cea8;
   box-shadow: 0 0 8px #06cea89d;
 }
 
 #convert:hover {
-  background-color: #049177;
+  background-color: #111;
   color: #00ffd0;
+}
+
+#convert-grayed {
+  background-color: #929292;
+  border: solid 2px #a3a3a3;
+  box-shadow: 0 0 8px #c7c7c79d;
 }
 
 .dl-button {
@@ -66,8 +85,8 @@ button {
 }
 
 .dl-button * {
-  background-color: #32b3e6;
-  border: solid 2px #086c94;
+  background-color: #086c94;
+  border: solid 2px #32b3e6;
   box-shadow: 0 0 8px #32b3e69d;
   text-align: center;
   width:100%;
@@ -76,7 +95,7 @@ button {
 }
 
 .dl-button *:hover {
-  background-color: #086c94;
+  background-color: #111;
   color: #20c0ff;
 }
 
@@ -92,4 +111,21 @@ button {
 
 #file-list, #failed-file-list {
   margin-top: 10px;
+}
+
+.links {
+  justify-content: flex-start;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  float: left;
+}
+
+.links * {
+  text-align: left;
+}
+
+a {
+  color: #ffb1b4;
 }

@@ -44,6 +44,30 @@ document.getElementById('upload-form').addEventListener('submit', async function
   }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  const fileInput = document.getElementById("json-files");
+  const addFilesButton = document.getElementById("add-files-button");
+  const fileStatus = document.getElementById("file-status");
+  const convertButton = document.getElementById("convert-grayed");
+
+  addFilesButton.addEventListener("click", () => {
+    fileInput.click();
+  });
+
+  fileInput.addEventListener("change", () => {
+    const fileCount = fileInput.files.length;
+    fileStatus.textContent = fileCount > 0
+      ? `${fileCount} file${fileCount > 1 ? 's' : ''} selected.`
+      : "No files selected.";
+
+      if (fileCount > 0) {
+        convertButton.id = "convert";
+      } else {
+        convertButton.id = "convert-grayed";
+      }
+  });
+});
+
 async function loadMapping() {
   const response = await fetch('cubostats_mapping.txt');
   const text = await response.text();
