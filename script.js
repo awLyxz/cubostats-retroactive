@@ -48,25 +48,72 @@ document.addEventListener("DOMContentLoaded", function () {
   const fileInput = document.getElementById("json-files");
   const addFilesButton = document.getElementById("add-files-button");
   const fileStatus = document.getElementById("file-status");
+  const dropZone = document.getElementById("drop-zone");
   const convertButton = document.getElementById("convert-grayed");
 
+  // Click button to open file selector
   addFilesButton.addEventListener("click", () => {
     fileInput.click();
   });
 
+  // Handle file input change
   fileInput.addEventListener("change", () => {
-    const fileCount = fileInput.files.length;
+    handleFiles(fileInput.files);
+  });
+
+  // Drag and drop functionality
+  ['dragenter', 'dragover'].forEach(eventName => {
+    dropZone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      dropZone.style.borderColor = '#fff';
+      dropZone.style.backgroundColor = '#333';
+    }, false);
+  });
+
+  ['dragleave', 'drop'].forEach(eventName => {
+    dropZone.addEventListener(eventName, (e) => {
+      e.preventDefault();
+      dropZone.style.borderColor = '#ccc';
+      dropZone.style.backgroundColor = '#1a1a1a';
+    }, false);
+  });
+
+  dropZone.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dropZone.style.borderColor = '#ccc';
+
+  const files = Array.from(e.dataTransfer.files);
+  const jsonFiles = files.filter(file => file.type === "application/json" || file.name.endsWith(".json"));
+
+  if (jsonFiles.length === 0) {
+    fileStatus.textContent = "Only .json files are allowed.";
+    convertButton.id = "convert-grayed";
+    return;
+  }
+
+  // Optional: to reflect selected files in the input field
+  const dataTransfer = new DataTransfer();
+  jsonFiles.forEach(file => dataTransfer.items.add(file));
+  fileInput.files = dataTransfer.files;
+
+  handleFiles(jsonFiles);
+});
+
+  // Common handler for updating UI and enabling the convert button
+  function handleFiles(files) {
+    const fileCount = files.length;
     fileStatus.textContent = fileCount > 0
       ? `${fileCount} file${fileCount > 1 ? 's' : ''} selected.`
       : "No files selected.";
 
-      if (fileCount > 0) {
-        convertButton.id = "convert";
-      } else {
-        convertButton.id = "convert-grayed";
-      }
-  });
+    if (fileCount > 0) {
+      convertButton.id = "convert";
+    } else {
+      convertButton.id = "convert-grayed";
+    }
+  }
 });
+
 
 async function loadMapping() {
   const response = await fetch('cubostats_mapping.txt');

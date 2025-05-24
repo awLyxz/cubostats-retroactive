@@ -16,11 +16,11 @@
       <p class="helper">The statistics files are located in your world file inside the stats folder as <code>&lt;uuid&gt;.json</code>
         <br><span style="color: rgb(255, 240, 165);">Stop your server or exit your single player world before importing the statistics files.</span></p>
         
-      <div>
+      <div id="drop-zone">
         <input type="file" id="json-files" accept=".json" hidden multiple required>
         <button type="button" id="add-files-button">Import Statistics Files (.json)</button>
-        <p id="file-status">No files selected.</p>
       </div>
+      <p id="file-status">No files selected.</p>
 
       <button type="submit" id="convert-grayed">Convert</button>
     </form>
