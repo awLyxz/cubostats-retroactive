@@ -18,6 +18,9 @@ document.getElementById('upload-form').addEventListener('submit', async function
     const mcfunctionFiles = [];
     const failedFiles = []; // To track failed files
 
+    // Generate the master function file content
+    let masterFunctionContent = "";
+
     // Process each JSON file
     for (const file of jsonFiles) {
       const json = JSON.parse(await file.text());
@@ -25,12 +28,17 @@ document.getElementById('upload-form').addEventListener('submit', async function
       const username = await fetchUsername(uuid);
 
       if (username) {
+        masterFunctionContent += `execute if entity @s[name=${username}] run function cubostats:old_data/stats_${username.toLowerCase()}\n`;
+
         const mcfunctionContent = generateMcfunctionContent(json, mapping, username);
         mcfunctionFiles.push({ filename: `stats_${username.toLowerCase()}.mcfunction`, content: mcfunctionContent });
       } else {
         failedFiles.push(file.name); // Track the failed file
       }
     }
+
+    // Add it to the list of files to be zipped
+    mcfunctionFiles.push({ filename: 'update_all_stats.mcfunction', content: masterFunctionContent });
 
     const zipBlob = await createZip(mcfunctionFiles);
 
@@ -136,7 +144,7 @@ async function fetchUsername(uuid) {
 }
 
 function generateMcfunctionContent(json, mapping, username) {
-  let content = '$tellraw $(output_name) [{"text":"Cubo","color":"dark_green"},{"text":"Stats","color":"red"},{"text":" was Retroactively Updated","color":"gold"}]\n';
+  let content = 'tellraw @s [{"text":"Cubo","color":"dark_green"},{"text":"Stats","color":"red"},{"text":" was Retroactively Updated","color":"gold"}]\n\n';
   const stats = json.stats || {};
 
   for (const category in stats) {
@@ -146,7 +154,7 @@ function generateMcfunctionContent(json, mapping, username) {
     for (const stat in categoryStats) {
       const fullStat = `${formattedCategory}:${stat.replace(':', '.')}`;
       if (mapping[fullStat]) {
-        content += `scoreboard players set ${username} ${mapping[fullStat]} ${categoryStats[stat]}\n`;
+        content += `scoreboard players set @s ${mapping[fullStat]} ${categoryStats[stat]}\n`;
       }
     }
   }
@@ -193,9 +201,11 @@ function displayResult(mcfunctionFiles, zipBlob, failedFiles) {
   // Add filenames to the file list
   const fileList = document.getElementById('file-list');
   mcfunctionFiles.forEach(file => {
-    const li = document.createElement('li');
-    li.textContent = file.filename;
-    fileList.appendChild(li);
+    if (!file.filename.includes('update_all_stats')) {
+      const li = document.createElement('li');
+      li.textContent = file.filename;
+      fileList.appendChild(li);
+    }
   });
 
   // Display failed files
@@ -219,20 +229,5 @@ function displayResult(mcfunctionFiles, zipBlob, failedFiles) {
     link.href = URL.createObjectURL(zipBlob);
     link.download = 'cubostats-retroactive-stats.zip';
     link.click();
-  })
-
-  const downloadAdvancementButton = document.getElementById('download-advancement-btn');
-
-  downloadAdvancementButton.addEventListener('click', function() {
-    // Path to the existing file
-    const filePath = './retroactive_stats_update.json'; // Change this if needed
-
-    // Create a temporary download link
-    const link = document.createElement('a');
-    link.href = filePath;
-    link.download = 'retroactive_stats_update.json'; // Ensure the file name is the same or change it
-
-    // Trigger the download by clicking the link programmatically
-    link.click();
-  });
+  });;
 }

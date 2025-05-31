@@ -90,23 +90,14 @@ button {
   box-shadow: 0 0 8px #c7c7c79d;
 }
 
-.dl-button {
-  display: flex;
-  margin: auto;
-  margin-top: 20px;
-}
-
-.dl-button * {
+#download-zip-btn {
   background-color: #086c94;
   border: solid 2px #32b3e6;
   box-shadow: 0 0 8px #32b3e69d;
   text-align: center;
-  width:100%;
-  margin-left: 2vw;
-  margin-right: 2vw;
 }
 
-.dl-button *:hover {
+#download-zip-btn:hover {
   background-color: #111;
   color: #20c0ff;
 }
