@@ -25,15 +25,28 @@ document.getElementById('upload-form').addEventListener('submit', async function
     for (const file of jsonFiles) {
       const json = JSON.parse(await file.text());
       const uuid = file.name.replace('.json', '');
-      const username = await fetchUsername(uuid);
 
-      if (username) {
+      // Check UUID length before attempting to fetch username
+      if (uuid.length !== 36) {
+        failedFiles.push(file.name);
+        continue;
+      }
+
+      const playerData = await fetchPlayerData(uuid);
+
+      if (playerData) {
+        const { username, avatar } = playerData;
+
         masterFunctionContent += `execute if entity @s[name=${username}] run function cubostats:old_data/stats_${username.toLowerCase()}\n`;
 
         const mcfunctionContent = generateMcfunctionContent(json, mapping, username);
-        mcfunctionFiles.push({ filename: `stats_${username.toLowerCase()}.mcfunction`, content: mcfunctionContent });
+        mcfunctionFiles.push({
+          filename: `stats_${username.toLowerCase()}.mcfunction`,
+          content: mcfunctionContent,
+          avatar: avatar // Attach avatar URL for display later
+        });
       } else {
-        failedFiles.push(file.name); // Track the failed file
+        failedFiles.push(file.name);
       }
     }
 
@@ -52,12 +65,28 @@ document.getElementById('upload-form').addEventListener('submit', async function
   }
 });
 
+function adjustTopTextMargin() {
+  const fixedLinks = document.querySelector('.links');
+  const topText = document.getElementById('top-text');
+  if (!fixedLinks || !topText) return;
+
+  if (window.innerWidth < 1150) {
+    const linksHeight = fixedLinks.offsetHeight;
+    topText.style.marginTop = linksHeight + 40 + 'px';
+  } else {
+    topText.style.marginTop = '40px';
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   const fileInput = document.getElementById("json-files");
   const addFilesButton = document.getElementById("add-files-button");
   const fileStatus = document.getElementById("file-status");
   const dropZone = document.getElementById("drop-zone");
   const convertButton = document.getElementById("convert-grayed");
+
+  adjustTopTextMargin();
+  window.addEventListener('resize', adjustTopTextMargin);
 
   // Click button to open file selector
   addFilesButton.addEventListener("click", () => {
@@ -105,7 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
   fileInput.files = dataTransfer.files;
 
   handleFiles(jsonFiles);
-});
+  });
 
   // Common handler for updating UI and enabling the convert button
   function handleFiles(files) {
@@ -120,6 +149,8 @@ document.addEventListener("DOMContentLoaded", function () {
       convertButton.id = "convert-grayed";
     }
   }
+
+  
 });
 
 
@@ -136,11 +167,19 @@ async function loadMapping() {
   return mapping;
 }
 
-async function fetchUsername(uuid) {
+async function fetchPlayerData(uuid) {
   const url = `https://playerdb.co/api/player/minecraft/${uuid}`;
   const response = await fetch(url);
   const data = await response.json();
-  return data.success ? data.data.player.username : null;
+
+  if (data.success) {
+    return {
+      username: data.data.player.username,
+      avatar: data.data.player.avatar
+    };
+  } else {
+    return null;
+  }
 }
 
 function generateMcfunctionContent(json, mapping, username) {
@@ -203,19 +242,42 @@ function displayResult(mcfunctionFiles, zipBlob, failedFiles) {
   mcfunctionFiles.forEach(file => {
     if (!file.filename.includes('update_all_stats')) {
       const li = document.createElement('li');
-      li.textContent = file.filename;
+      li.style.display = 'flex';
+      li.style.alignItems = 'center';
+      li.style.gap = '8px';
+
+      if (file.avatar) {
+        const img = document.createElement('img');
+        img.src = file.avatar;
+        img.classList.add('avatar-img');
+        li.appendChild(img);
+      }
+
+      const text = document.createElement('span');
+      text.textContent = file.filename;
+      li.appendChild(text);
+
       fileList.appendChild(li);
     }
   });
 
-  // Display failed files
+  const failedFileListContainer = document.getElementById('has-failed-file');
   const failedFileList = document.getElementById('failed-file-list');
+
+  // Clear previous entries
+  while (failedFileList.firstChild) {
+    failedFileList.removeChild(failedFileList.firstChild);
+  }
+
   if (failedFiles.length > 0) {
+    failedFileListContainer.style.display = 'inline-block';
     failedFiles.forEach(fileName => {
       const li = document.createElement('li');
       li.textContent = fileName;
       failedFileList.appendChild(li);
     });
+  } else {
+    failedFileListContainer.style.display = 'none';
   }
 
   const downloadZipButton = document.getElementById('download-zip-btn');

@@ -33,7 +33,7 @@ label {
   vertical-align: text-top;
   text-align: left;
   padding: 20px;
-  width: 20vw;
+  width: 350px;
 }
 
 button {
@@ -51,8 +51,8 @@ button {
 #drop-zone {
   border: 2px dashed #ccc;
   border-radius: 10px;
-  background-color: #1a1a1a;
-  padding: 30px;
+  background-color: #222;
+  padding: 28px;
   max-width: fit-content;
   margin: 0 auto;
   display: flex;
@@ -102,9 +102,14 @@ button {
   color: #20c0ff;
 }
 
-.helper, hr {
+.helper {
   color: #b1b1b1;
   font-style: italic;
+}
+
+hr {
+  color: #b1b1b1;
+  margin: auto;
 }
 
 #status {
@@ -113,10 +118,16 @@ button {
 }
 
 #file-list, #failed-file-list {
+  background-color: #222;
+  list-style-type : none;
   margin-top: 10px;
+  max-height: 128px;
+  overflow-y: scroll;
 }
 
 .links {
+  background-color: #2a2a2a;
+  border-bottom-right-radius: 40px;
   justify-content: flex-start;
   position: absolute;
   top: 0;
@@ -126,9 +137,19 @@ button {
 }
 
 .links * {
+  border-radius: 4px;
   text-align: left;
 }
 
 a {
   color: #ffb1b4;
+}
+
+.avatar-img {
+  transition: transform 0.2s ease;
+  margin: 2px;
+  height: 24px;
+  width: 24px;
+  alt: 'Avatar';
+  border-radius: 6px;
 }
