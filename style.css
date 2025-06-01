@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Cabin', sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -141,15 +141,50 @@ hr {
   text-align: left;
 }
 
-a {
-  color: #ffb1b4;
-}
-
 .avatar-img {
-  transition: transform 0.2s ease;
   margin: 2px;
   height: 24px;
   width: 24px;
   alt: 'Avatar';
   border-radius: 6px;
+}
+
+#creator-name {
+  font-family: 'Quicksand', Arial, sans-serif;
+  font-size: 1.3rem;
+  font-weight: normal;
+  letter-spacing: 2px;
+}
+
+#creator-img {
+  transition: transform 0.25s ease-in-out, background-color 1s ease, border-color 1s ease, box-shadow 1s ease;
+  vertical-align: middle;
+  margin-right: 8px;
+  margin-left: 8px;
+  margin-top: 3px;
+  transform: translateY(-3px);
+  background-color: #ffb1b4;
+  border: 2px solid #ffb1b4;
+  box-shadow: 0 0 10px #ffb1b4;
+}
+
+#creator-name:hover #creator-img {
+  transform: translateY(-3px) scale(1.2) ;
+  background-color: #5bffde;
+  border-color: #5bffde;
+  box-shadow: 0 0 10px #5bffde;
+}
+
+#creator-name:hover {
+  color: #5bffde;
+}
+
+a {
+  transition: 1s ease;
+  color: #ffb1b4;
+}
+
+a:hover {
+  transition: 1s ease;
+  color: #5bffde;
 }
