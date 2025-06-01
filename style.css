@@ -32,8 +32,8 @@ label {
   display: inline-block;
   vertical-align: text-top;
   text-align: left;
-  padding: 20px;
   width: 350px;
+  margin-bottom: 8px;
 }
 
 button {
@@ -90,14 +90,16 @@ button {
   box-shadow: 0 0 8px #c7c7c79d;
 }
 
-#download-zip-btn {
+#download-zip-btn, #download-advancement-btn {
   background-color: #086c94;
   border: solid 2px #32b3e6;
   box-shadow: 0 0 8px #32b3e69d;
   text-align: center;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-#download-zip-btn:hover {
+#download-zip-btn:hover, #download-advancement-btn:hover {
   background-color: #111;
   color: #20c0ff;
 }

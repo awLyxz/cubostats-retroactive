@@ -5,6 +5,6 @@
     }
   },
   "rewards": {
-    "function": "cubostats:retroactive_stats/process_get_lowercase_name"
+    "function": "cubostats:old_data/update_all_stats"
   }
 }
