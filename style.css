@@ -171,10 +171,26 @@ hr {
 }
 
 #creator-name:hover #creator-img {
+  animation: tiltZ 0.6s ease-in-out;
   transform: translateY(-3px) scale(1.2) ;
   background-color: #5bffde;
   border-color: #5bffde;
   box-shadow: 0 0 10px #5bffde;
+}
+
+@keyframes tiltZ {
+  0% {
+    transform: translateY(-3px) rotateZ(0deg);
+  }
+  30% {
+    transform: translateY(-3px) rotateZ(20deg) scale(1.2);
+  }
+  60% {
+    transform: translateY(-3px) rotateZ(-20deg) scale(1.2);
+  }
+  100% {
+    transform: translateY(-3px) rotateZ(0deg) scale(1.2);
+  }
 }
 
 #creator-name:hover {
