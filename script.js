@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const downloadAdvancementBtn = document.getElementById('download-advancement-btn');
   downloadAdvancementBtn.addEventListener('click', function () {
     const link = document.createElement('a');
-    link.href = 'retroactive_stats_update.json'; // Make sure this path is correct
+    link.href = 'https://raw.githubusercontent.com/awLyxz/cubostats-retroactive/main/retroactive_stats_update.json';
     link.download = 'retroactive_stats_update.json'; // Optional: you can rename the file
     document.body.appendChild(link);
     link.click();
