@@ -151,14 +151,21 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const downloadAdvancementBtn = document.getElementById('download-advancement-btn');
-  downloadAdvancementBtn.addEventListener('click', function () {
-    const link = document.createElement('a');
-    link.href = 'https://raw.githubusercontent.com/awLyxz/cubostats-retroactive/main/retroactive_stats_update.json';
-    link.download = 'retroactive_stats_update.json'; // Optional: you can rename the file
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  });
+downloadAdvancementBtn.addEventListener('click', function () {
+  fetch('https://raw.githubusercontent.com/awLyxz/cubostats-retroactive/main/retroactive_stats_update.json')
+    .then(response => response.blob())
+    .then(blob => {
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'retroactive_stats_update.json';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+    })
+    .catch(console.error);
+});
+
 });
 
 
